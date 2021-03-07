@@ -1,0 +1,17 @@
+connection.connect(error => {
+    if(error) throw error;
+    console.log("Success connected to the database");
+    var sql = `CREATE TABLE navers(
+        id INT AUTO_INCREMENT,
+        name VARCHAR(30) NOT NULL,
+        birthdate DATE NOT NULL,
+        admission_date DATE NOT NULL,
+        projects INT NOT NULL,
+        PRIMARY KEY (id),
+        FOREIGN KEY(projects) REFERENCES projects(id)
+    )`;
+    connection.query(sql, (err, result) => {
+        if(err) throw err;
+        console.log("Table created successfully!");
+    })
+});
