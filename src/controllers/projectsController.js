@@ -85,13 +85,13 @@ exports.delete = (req, res) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `Not found Customer with id ${req.params.projectId}.`
+            message: `Not found Projects with id ${req.params.projectId}.`
           });
         } else {
           res.status(500).send({
             message: "Could not delete Project with id " + req.params.projectId
           });
         }
-      } else res.send({ message: `Project was deleted successfully!` });
+      } else res.send({ message: `Projects was deleted successfully!` });
     });
   };
