@@ -18,6 +18,8 @@ app.get("/", (req, res) => {
 
 require('./routes/projectsRoutes.js')(app);
 require('./routes/naversRoutes.js')(app);
+require('./routes/usersRoutes.js')(app);
+
 
 
 //set PORT, listen
