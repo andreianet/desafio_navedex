@@ -1,7 +1,19 @@
 connection.connect(error => {
     if(error) throw error;
     console.log("Success connected to the database");
-    var sql = `CREATE TABLE navers(
+    var sql = `CREATE TABLE users(
+        id INT AUTO_INCREMENT,
+        email VARCHAR(30) NOT NULL,
+        senha VARCHAR(8) NOT NULL,
+        PRIMARY KEY (id)
+)`;
+    connection.query(sql, (err, result) => {
+        if(err) throw err;
+        console.log("Table created successfully!");
+    })
+});
+
+ `CREATE TABLE navers(
         id INT AUTO_INCREMENT,
         name VARCHAR(30) NOT NULL,
         birthdate DATE NOT NULL,
@@ -10,8 +22,17 @@ connection.connect(error => {
         PRIMARY KEY (id),
         FOREIGN KEY(projects) REFERENCES projects(id)
     )`;
-    connection.query(sql, (err, result) => {
-        if(err) throw err;
-        console.log("Table created successfully!");
-    })
-});
+
+`CREATE TABLE projects(
+        id INT AUTO_INCREMENT,
+        name VARCHAR(30) NOT NULL,
+        PRIMARY KEY (id)
+)`;
+
+`CREATE TABLE users(
+        id INT AUTO_INCREMENT,
+        email VARCHAR(30) NOT NULL,
+        senha VARCHAR(8) NOT NULL,
+        PRIMARY KEY (id)
+)`;
+       
