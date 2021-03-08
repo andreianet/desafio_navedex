@@ -4,4 +4,15 @@ const navers = require('../controllers/naversController')
 //@description: Create a new Navers
 app.post('/navers', navers.create);
 
+//@description:
+app.get('/navers', navers.findAll);
+
+//@description:
+app.get('/navers/:naversId', navers.findOne);
+
+//@description:
+app.put('/navers/:naversId', navers.update);
+
+//@description:
+app.delete('/navers/:naversId', navers.delete);
 }
