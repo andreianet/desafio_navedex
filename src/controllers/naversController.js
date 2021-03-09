@@ -36,7 +36,7 @@ exports.findAll = (req, res) => {
 }
 
 exports.findOne = (req, res) => {
-    Navers.findById(req.params.naversId, req.params.projectId, (err, data) => {
+    Navers.findById(req.params.naversId, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
               res.status(404).send({

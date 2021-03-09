@@ -41,8 +41,10 @@ Navers.findById = (naversId, result) => {
         }
         console.log("Found navers: ", res);
         result(null, res);
-    })
+    });
 };
+    
+
 
 Navers.updateById = (id, navers, result) => {
     con.query("UPDATE navers SET name = ? WHERE id = ?",
