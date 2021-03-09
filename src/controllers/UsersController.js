@@ -1,23 +1,26 @@
 const Users = require('../model/users');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
-exports.create = (req, res) => {
+exports.signup = async (req, res) => {    
     if(!req.body){
         res.status(400).send({
             message: "Content can not be empty"
-        });
-    }
-    //create users
-    const users = new Users({
+        })
+    } 
+    //create users   
+    const salt = await bcrypt.genSalt(8)
+    const passhash =  bcrypt.hashSync(req.body.senha, salt); //ERROR AQUI   
+    const users = new Users({        
         email: req.body.email,
-        senha: req.body.senha,
-
-    });
+        senha: result.passhash
+    })   
     //save users    
-    Users.create(users,(err, data) => {
+    Users.signup(users,(err, data) => {
         if(err) 
             res.status(500).send({
             message: 
-            err.message || "Some error occurred while creating the user."
+            err.message || "Some error occurred while creating the users."
         });
         else res.send(data);
     })

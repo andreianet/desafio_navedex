@@ -35,4 +35,7 @@ connection.connect(error => {
         senha VARCHAR(8) NOT NULL,
         PRIMARY KEY (id)
 )`;
+
+ALTER TABLE users ADD UNIQUE (email)
+ALTER TABLE navedex.users MODIFY COLUMN senha VARCHAR(100); 
        
