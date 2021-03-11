@@ -10,6 +10,9 @@ app.get('/navers', navers.findAll);
 //@description:
 app.get('/navers/:naversId', navers.findOne);
 
+//@description: Search name (Navers)
+app.get('/navers/:name', navers.find)
+
 //@description:
 app.put('/navers/:naversId', navers.update);
 

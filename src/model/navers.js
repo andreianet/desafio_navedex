@@ -1,4 +1,5 @@
 const con = require('./db.js')
+const mysql = require('mysql');
 
 //constructor
 const Navers = function(naver){
@@ -43,7 +44,15 @@ Navers.findById = (naversId, result) => {
         result(null, res);
     });
 };
+
+Navers.findByName = (naversId, name, admission_date,job_role, result) => {
+    var sql = 'SELECT * FROM navers WHERE name = ? AND admission_date = ? AND job_role = ?'
+    con.query( sql, [ naversId, name, admission_date,job_role], function (err, fields){
+        if(err) throw err;
+        console.log(result, fields);
+    });       
     
+}
 
 
 Navers.updateById = (id, navers, result) => {

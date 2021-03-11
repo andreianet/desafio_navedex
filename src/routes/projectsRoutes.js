@@ -10,6 +10,9 @@ app.get('/projects', projects.findAll);
 //@description: Retrieve projectId
 app.get('/projects/:projectId', projects.findOne);
 
+//Search name
+app.get('/projects/index/:name', projects.findName); //NÃO ESTÀ TRAZENDO NADA
+
 //@description: Update a Projects with projectId
 app.put('/projects/:projectId', projects.update);
 

@@ -51,6 +51,22 @@ exports.findOne = (req, res) => {
     });
 };
 
+exports.find = (req, res) => {
+  Navers.findByName(req.params.id,req.params.name, req.params.admission_date, req.params.job_role, (err, data) => {
+      if (err) {
+          if (err.kind === "not_found") {
+            res.status(404).send({
+              message: `Not found Navers with ${req.params.name}.`
+            });
+          } else {
+            res.status(500).send({
+              message: "Error retrieving Navers + ${req.params.name }"
+            });
+          }
+      } else res.send(data);
+  });
+};
+
 exports.update = (req, res) => {
     //validate req
     if(!req.body){

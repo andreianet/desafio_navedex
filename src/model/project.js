@@ -42,6 +42,19 @@ Projects.findById = (projectId, result) => {
     })
 };
 
+Projects.findByName = (name,err) => {
+    con.query(`SELECT * FROM projects WHERE name = ${name}`, (res, result) => {
+        if(err) {
+            log("error:", err);
+            result(err, null);
+            return;
+        }
+        console.log("Found name projects: ", res);
+        result(null, res);
+        
+    })
+}
+
 Projects.updateById = (id, project, result) => {
     con.query("UPDATE projects SET name = ? WHERE id = ?",
     [project.name, id],

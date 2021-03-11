@@ -50,6 +50,23 @@ exports.findOne = (req, res) => {
     });
 };
 
+exports.findName = (req, res) => {
+  Project.findByName(req.params.name, (err, data) => {
+    if(err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found Projects with name ${req.params.name}.`
+        });
+      }else{
+        res.status(500).send({
+          message: "Error Project Name " + req.params.name
+        });
+      }
+      
+    }else res.send(data)
+  })
+};
+
 //UPDATE a PROJECTS -> ID
 exports.update = (req, res) => {
     //validate req
