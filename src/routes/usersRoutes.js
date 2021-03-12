@@ -4,4 +4,6 @@ module.exports = app => {
 
 app.post('/users', user.signup);
 
+/*app.post('/token', user.login);*/
+
 }
