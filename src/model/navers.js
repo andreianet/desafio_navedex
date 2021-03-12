@@ -34,7 +34,10 @@ Navers.getAll = result => {
     })
 }
 Navers.findById = (naversId, result) => {
-    con.query(`SELECT * FROM navers WHERE id = ${naversId}`, (err, res) => {
+    const details = {
+        
+    }
+    con.query(`SELECT navers.id, navers.name, navers.birthdate, navers.job_role, navers.projects AS navers, projects.id, projects.name AS project FROM navers INNER JOIN projects ON navers.id = projects.id`, (err, res) => {
         if(err) {
             console.log("error:", err);
             result(err, null);
@@ -45,14 +48,22 @@ Navers.findById = (naversId, result) => {
     });
 };
 
-Navers.findByName = (naversId, name, admission_date,job_role, result) => {
-    var sql = 'SELECT * FROM navers WHERE name = ? AND admission_date = ? AND job_role = ?'
-    con.query( sql, [ naversId, name, admission_date,job_role], function (err, fields){
-        if(err) throw err;
-        console.log(result, fields);
-    });       
+Navers.findByName = ( name,  result) => { 
+    console.log(name);      
+    const query = `select * from navers where name like '%miguel%'`
+    con.query(query,(err, res) => {
+       
+        if(err) {
+            console.log("error:", err);
+            result(err, null);
+            return;
+        }        
+        console.log("Found navers: ", res);
+        result(null, res);
+    });
+  };
     
-}
+
 
 
 Navers.updateById = (id, navers, result) => {

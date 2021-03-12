@@ -1,4 +1,5 @@
 const Navers = require('../model/navers.js');
+const Projects = require('../model/project');
 
 exports.create = (req, res) => {
     if (!req.body) {
@@ -35,7 +36,7 @@ exports.findAll = (req, res) => {
     });
 }
 
-exports.findOne = (req, res) => {
+/*exports.findOne = (req, res) => {
     Navers.findById(req.params.naversId, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
@@ -49,10 +50,10 @@ exports.findOne = (req, res) => {
             }
         } else res.send(data);
     });
-};
+};*/
 
 exports.find = (req, res) => {
-  Navers.findByName(req.params.id,req.params.name, req.params.admission_date, req.params.job_role, (err, data) => {
+  Navers.findByName(req.params.name,(err, data) => {
       if (err) {
           if (err.kind === "not_found") {
             res.status(404).send({
@@ -60,7 +61,7 @@ exports.find = (req, res) => {
             });
           } else {
             res.status(500).send({
-              message: "Error retrieving Navers + ${req.params.name }"
+              message: `Error retrieving Navers ${req.params.name }`
             });
           }
       } else res.send(data);
@@ -112,3 +113,30 @@ exports.delete = (req, res) => {
     });
   };
 
+  exports.findByProjects = (req, res) => {
+    Navers.findById(req.params.id, (err, data) => {
+        if (err) {
+            if (err.kind === "not_found") {
+              res.status(404).send({
+                message: `Not found Navers with ${req.params.id}.`
+              });
+            } else {
+              res.status(500).send({
+                message: `Error retrieving Navers + ${req.params.id }`
+              });
+            }
+        } else {
+          const projectId = data.projects;
+          console.log(projectId)
+
+          const infoProjects = Projects.findById(projectId);
+          console.log(infoProjects)
+          const response = {
+            ...data,
+            infoProjects
+          }
+
+          res.send(response);
+        }
+    });
+  };

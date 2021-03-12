@@ -8,10 +8,12 @@ app.post('/navers', navers.create);
 app.get('/navers', navers.findAll);
 
 //@description:
-app.get('/navers/:naversId', navers.findOne);
+//app.get('/navers/:naversId', navers.findOne);
 
 //@description: Search name (Navers)
-app.get('/navers/:name', navers.find)
+app.get('/navers/:NameNavers', navers.find)
+
+app.get('/navers/project/:name', navers.findByProjects)
 
 //@description:
 app.put('/navers/:naversId', navers.update);
