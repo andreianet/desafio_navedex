@@ -41,8 +41,10 @@ ALTER TABLE navedex.users MODIFY COLUMN senha VARCHAR(100);
 
 DELETE FROM navedex.users WHERE id = 5;
 
-/*CONSULTAS TESTE*/
+/*CONSULTAS*/
 SELECT * FROM navers WHERE name = 'andreia' OR admission_date='2021-01-01' OR job_role='desenvolvedora'; 
 
 SELECT * FROM navers WHERE job_role='qa'; 
+
+SELECT navers.id, navers.name, navers.birthdate, navers.job_role, navers.projects AS navers, projects.id, projects.name AS project FROM navers INNER JOIN projects ON navers.id = projects.id
        

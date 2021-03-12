@@ -5,7 +5,7 @@ module.exports = app => {
 app.post('/projects', projects.create );
 
 //@description: Retrieve all project
-app.get('/projects', projects.findAll);
+app.get('/projects', projects.index);
 
 //@description: Retrieve projectId
 app.get('/projects/:projectId', projects.findOne);

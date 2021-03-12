@@ -7,10 +7,11 @@ const Navers = function(naver){
     this.birthdate = naver.birthdate;
     this.admission_date = naver.admission_date;
     this.job_role = naver.job_role;
-    this.projects = naver.projects;
+    
+        this.projects = naver.projects;
+    
 };
-
-Navers.create = (newNavers, result) => {
+Navers.store = (newNavers, result) => {
     con.query("INSERT INTO navers SET ? ", newNavers,(err, res) => {
         if (err) {
             console.log("error:", err);
@@ -32,22 +33,21 @@ Navers.getAll = result => {
         console.log("navers: ", res);
         result(null, res);
     })
-}
-Navers.findById = (naversId, result) => {
-    const details = {
-        
-    }
+};
+//List Details dos Navers e Projects
+Navers.findById = (naversId, result) => {    
     con.query(`SELECT navers.id, navers.name, navers.birthdate, navers.job_role, navers.projects AS navers, projects.id, projects.name AS project FROM navers INNER JOIN projects ON navers.id = projects.id`, (err, res) => {
         if(err) {
             console.log("error:", err);
             result(err, null);
             return;
         }
-        console.log("Found navers: ", res);
+        console.log("Found Navers: ", res);
         result(null, res);
+        
     });
 };
-
+//Filter Name
 Navers.findByName = ( name,  result) => { 
     console.log(name);      
     const query = `select * from navers where name like '%miguel%'`
@@ -61,10 +61,7 @@ Navers.findByName = ( name,  result) => {
         console.log("Found navers: ", res);
         result(null, res);
     });
-  };
-    
-
-
+};
 
 Navers.updateById = (id, navers, result) => {
     con.query("UPDATE navers SET name = ? WHERE id = ?",
@@ -85,7 +82,6 @@ Navers.updateById = (id, navers, result) => {
         }
     );
 };
-
 
 Navers.remove = (id, result) => {
     con.query("DELETE FROM navers WHERE id = ?", id, (err, res) => {

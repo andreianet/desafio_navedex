@@ -3,10 +3,9 @@ const con = require('./db.js')
 //constructor
 const Projects = function(project){
     this.name = project.name;
-    //this.navers = projects.navers;
+    this.navers = project.navers;
 };
-
-Projects.create = (newProjects, result) => {
+Projects.create = (newProjects,result) => {
     con.query("INSERT INTO projects SET ? ", newProjects,(err, res) => {
         if (err) {
             console.log("error:", err);
@@ -17,7 +16,6 @@ Projects.create = (newProjects, result) => {
         result(null, {id: res.insertId, ...newProjects});
     })
 }
-
 Projects.getAll = result => {
     con.query("SELECT * FROM projects", (err, res) => {
         if(err) {
@@ -29,11 +27,11 @@ Projects.getAll = result => {
         result(null, res);
     })
 };
-
 Projects.findById = (projectId, result) => {
-    con.query(`SELECT * FROM projects WHERE id = ${projectId}`, (err, res) => {
+    con.query(`SELECT projects.id, projects.name, projects.navers AS projects, navers.id, navers.name, navers.birthdate, navers.admission_date, navers.job_role AS navers FROM projects INNER JOIN navers ON projects.id = navers.id;`, (err, res) => {
         if(err) {
             console.log("error:", err);
+            console.log(result);
             result(err, null);
             return;
         }
@@ -41,7 +39,6 @@ Projects.findById = (projectId, result) => {
         result(null, res);
     })
 };
-
 Projects.findByName = (name,err) => {
     con.query(`SELECT * FROM projects WHERE name = ${name}`, (res, result) => {
         if(err) {
@@ -53,8 +50,7 @@ Projects.findByName = (name,err) => {
         result(null, res);
         
     })
-}
-
+};
 Projects.updateById = (id, project, result) => {
     con.query("UPDATE projects SET name = ? WHERE id = ?",
     [project.name, id],
@@ -74,7 +70,6 @@ Projects.updateById = (id, project, result) => {
         }
     );
 };
-
 Projects.remove = (id, result) => {
     con.query("DELETE FROM projects WHERE id = ?", id, (err, res) => {
       if (err) {
@@ -91,9 +86,5 @@ Projects.remove = (id, result) => {
       result(null, res);
     });
   };
-
-
-
-
 
 module.exports = Projects;

@@ -1,7 +1,8 @@
 const Navers = require('../model/navers.js');
 const Projects = require('../model/project');
 
-exports.create = (req, res) => {
+//Rota de Criação de Naver
+exports.store = (req, res) => {
     if (!req.body) {
         res.status(400).send({
             message: "Content can not be empty"
@@ -15,7 +16,7 @@ exports.create = (req, res) => {
         projects: req.body.projects
 
     })
-    Navers.create(nave, (err, data) => {
+    Navers.store(nave, (err, data) => {
         if (err) 
             res.status(500).send({
             message: 
@@ -24,8 +25,8 @@ exports.create = (req, res) => {
         else res.send(data);
     });
 };
-
-exports.findAll = (req, res) => {
+//Rota de Listagens de Navers
+exports.index = (req, res) => {  
     Navers.getAll((err, data) => {
        if (err)
             res.status(500).send({
@@ -52,6 +53,7 @@ exports.findAll = (req, res) => {
     });
 };*/
 
+//Index - Filtrar por name
 exports.find = (req, res) => {
   Navers.findByName(req.params.name,(err, data) => {
       if (err) {
@@ -67,7 +69,7 @@ exports.find = (req, res) => {
       } else res.send(data);
   });
 };
-
+//Rota para Atualizar Navavers
 exports.update = (req, res) => {
     //validate req
     if(!req.body){
@@ -76,7 +78,6 @@ exports.update = (req, res) => {
         });
     }
     console.log(req.body);
-
     Navers.updateById(
         req.params.naversId,
         new Navers(req.body),
@@ -113,7 +114,7 @@ exports.delete = (req, res) => {
     });
   };
 
-  exports.findByProjects = (req, res) => {
+  exports.show = (req, res) => {
     Navers.findById(req.params.id, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {

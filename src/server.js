@@ -15,6 +15,8 @@ app.use(bodyParser.urlencoded({
 app.get("/", (req, res) => {
     res.json({message: "Welcome NaveDex´s"});
 });
+require('./middleware/auth.js')
+
 
 require('./routes/projectsRoutes.js')(app);
 require('./routes/naversRoutes.js')(app);
