@@ -2,7 +2,7 @@
 
 Api desenvolvida em NodeJs, com banco de dados relacional MySQL, para um desafio de uma empresa.
 
-# Tenologias Utilizadas:
+# Tecnologias Utilizadas:
 - MySQL 
 - Bcrypt
 - Dotenv
